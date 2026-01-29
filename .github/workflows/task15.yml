@@ -20,21 +20,22 @@ jobs:
       - name: Detect Change
         id: change
         run: | 
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^frontend'
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^frontend/'
           then
             echo "frontend_changed=true" >> $GITHUB_OUTPUT
           else
             echo "frontend_changed=false" >> $GITHUB_OUTPUT
-
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^backend'
+          fi
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^backend/'
           then
             echo "backend_changed=true" >> $GITHUB_OUTPUT
           else
             echo "backend_changed=false" >> $GITHUB_OUTPUT
+          fi
   deploy-app:
     needs: detect-changes
     runs-on: self-hosted
-    if: needs.detect-changes.outputs.frontend_changed == true
+    if: needs.detect-changes.outputs.frontend_changed == 'true'
     environment: production
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref_name }}
@@ -45,7 +46,7 @@ jobs:
   deploy-backend:
     needs: detect-changes
     runs-on: self-hosted
-    if: needs.detect-changes.outputs.backend_changed == true
+    if: needs.detect-changes.outputs.backend_changed == 'true'
     steps:
       - name: Deploy
         run: echo "Deploying backend"
