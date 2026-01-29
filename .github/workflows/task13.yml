@@ -1,0 +1,19 @@
+name: Task 13
+
+on:
+  workflow_dispatch:
+
+jobs:
+  critical:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Critical Job
+        run: echo "Critical Job running"
+  optional:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Optional Job
+        run: |
+          echo "Optional job running"
+          exit 1
