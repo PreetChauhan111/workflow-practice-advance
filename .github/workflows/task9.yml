@@ -1,0 +1,14 @@
+name: Task 9
+
+on:
+  workflow_dispatch:
+
+jobs:
+  summary-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summary
+        run: |
+          echo "Workflow-name=${{ github.workflow }}" >> $GITHUB_STEP_SUMMARY
+          echo "Branch-name=${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "CI completed" >> $GITHUB_STEP_SUMMARY          
