@@ -10,7 +10,7 @@ jobs:
       - name: Repo Checkout
         uses: actions/checkout@v4
       - name: Node install
-        uses: ./.github/actions/setup-node-install/action.yml
+        uses: ./.github/actions/setup-node-install/
         with:
           node-version: 18
     
