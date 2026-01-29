@@ -9,8 +9,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' || github.ref_name == 'deploy' }}
+    if: ${{ github.ref_name == 'main' || github.ref_name == 'develop' }}
     environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+
+
+    env:
+      DEPLOY_ENV: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+
     steps:
     - name: Deploy
-      run: echo "Deploying to $GITHUB_ENVIRONMENT"
+      run: echo "Deploying to ${{ env.DEPLOY_ENV }}"
