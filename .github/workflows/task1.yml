@@ -1,0 +1,16 @@
+name: Task 1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  use-composite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo Checkout
+        uses: actions/checkout@v4
+      - name: Node install
+        uses: ./.github/actions/setup-node-install/action.yml
+        with:
+          node-version: 18
+    
