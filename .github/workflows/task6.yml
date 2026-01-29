@@ -1,0 +1,27 @@
+name: Task 6
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  canary-deploy:
+    runs-on: ubuntu-latest
+
+    outputs:
+      rollout: ${{ steps.rollout.outputs.rollout }}
+
+    steps:
+      - name: Random Generator
+        id: rollout
+        run: |
+          echo "rollout=$((RANDOM % 100 + 1))" >> $GITHUB_OUTPUT
+      - name: Print Number
+        run: echo "Number = $outputs.rollout"
+      - name: condition
+        run: |
+          if $outputs.rollout -le 20
+          then
+            echo "Canary deployment started"
+          else
+            echo "Deployment skipped"
+      
