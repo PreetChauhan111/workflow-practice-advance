@@ -15,11 +15,13 @@ jobs:
     steps:
       - name: active color
         run: echo "Current active color = ${{ inputs.active_color }}"
-      - name: Blue -> Green
-        if: inputs.active_color == 'blue'
-        run: ${{ inputs.active_color.set_value }} = green
-      - name: Green -> Blue
-        if: failure() && inputs.active_color == 'green'
-        run: ${{ inputs.active_color.set_value }} = blue
-      - name: Traffic status
-        run: echo "Traffic switched to ${{ inputs.active_color }}"
+      - name: Decide next color
+        id: switch
+        run: |
+          if [ "${{ inputs.active_color }}" = "blue" ]; then
+            echo "next=green" >> $GITHUB_OUTPUT
+          else
+            echo "next=blue" >> $GITHUB_OUTPUT
+          fi
+      - name: Switch traffic
+        run: echo "Traffic switched to ${{ steps.switch.outputs.next }}"
