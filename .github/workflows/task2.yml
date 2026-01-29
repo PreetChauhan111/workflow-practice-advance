@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Node
-        if: inputs.install_deps == 'true'
+        if: inputs.install_deps == true
         uses: ./actions/setup-node-install/
         with:
           node-version: 18
