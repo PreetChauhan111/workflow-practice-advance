@@ -17,11 +17,9 @@ jobs:
           echo "rollout=$((RANDOM % 100 + 1))" >> $GITHUB_OUTPUT
       - name: Print Number
         run: echo "Number = ${{ steps.rollout.outputs.rollout }}"
-      - name: condition
-        run: |
-          if ${{ steps.rollout.outputs.rollout }} -le 20
-          then
-            echo "Canary deployment started"
-          else
-            echo "Deployment skipped"
-          fi
+      - name: Canary deploy
+        if: ${{ steps.rollout.outputs.rollout <= 20 }}
+        run: echo "Canary deployment started"
+      - name: Skip deploy
+        if: ${{ steps.rollout.outputs.rollout > 20 }}
+        run: echo "Deployment skipped"
