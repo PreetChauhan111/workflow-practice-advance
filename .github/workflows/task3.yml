@@ -3,7 +3,6 @@ name: Task 3
 on: 
   push:
     branches:
-      - main
       - develop
 
 jobs:
@@ -11,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref_name == 'main' || github.ref_name == 'develop' }}
     environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
-
 
     env:
       DEPLOY_ENV: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
