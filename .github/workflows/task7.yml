@@ -1,0 +1,25 @@
+name: Task 7
+
+on:
+  workflow_dispatch:
+    inputs:
+      active_color:
+          type: choice
+          options:
+            - blue
+            - green
+
+jobs:
+  blue-green:
+    runs-on: ubuntu-latest
+    steps:
+      - name: active color
+        run: echo "Current active color = ${{ inputs.active_color }}"
+      - name: Blue -> Green
+        if: inputs.active_color == 'blue'
+        run: ${{ inputs.active_color }} == 'green'
+      - name: Green -> Blue
+        if: failure() && inputs.active_color == 'green'
+        run: ${{ inputs.active_color }} == 'blue'
+      - name: Traffic status
+        run: echo "Traffic switched to ${{ inputs.active_color }}"
