@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Node
         if: inputs.install_deps == true
-        uses: ./actions/setup-node-install/
+        uses: ./.github/actions/setup-node-install/
         with:
           node-version: 18
       - name: Print
