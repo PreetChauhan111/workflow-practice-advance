@@ -1,0 +1,51 @@
+name: Task 15
+
+on:
+  push:
+    branches:
+      - main
+    
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frontend_changed: ${{ steps.change.outputs.frontend_changed }}
+      backend_changed: ${{ steps.change.outputs.backend_changed }}
+
+    steps:
+      - name: code checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0      
+      - name: Detect Change
+        id: change
+        run: | 
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^frontend'
+          then
+            echo "frontend_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "frontend_changed=false" >> $GITHUB_OUTPUT
+
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^backend'
+          then
+            echo "backend_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "backend_changed=false" >> $GITHUB_OUTPUT
+  deploy-app:
+    needs: detect-changes
+    runs-on: self-hosted
+    if: needs.detect-changes.outputs.frontend_changed == true
+    environment: production
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref_name }}
+      cancel-in-progress: true
+    steps:
+      - name: Deploy
+        run: echo "Deploying frontend"
+  deploy-backend:
+    needs: detect-changes
+    runs-on: self-hosted
+    if: needs.detect-changes.outputs.backend_changed == true
+    steps:
+      - name: Deploy
+        run: echo "Deploying backend"
