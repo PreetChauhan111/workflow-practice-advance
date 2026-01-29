@@ -1,11 +1,11 @@
 name: Task 12
 
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     skip_run:
-  #       type: boolean
-  #       default: false
+  workflow_dispatch:
+    inputs:
+      skip_run:
+        type: boolean
+        default: false
   schedule:
     - cron: '*/5 * * * *'
 
@@ -14,5 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: main logic
-        # if: github.event_name == 'main' && inputs.skip_run == 'true'
-        run: echo "Hello World"
+        if: github.event_name == 'main' && inputs.skip_run == 'false' || github.event_name == 'schedule'
+        run: echo "Main Job executed"
+      - name: Run Skipped
+        if: inputs.skip_run == 'true'
+        run: echo "Run Skipped"
