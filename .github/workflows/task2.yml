@@ -1,0 +1,23 @@
+name: Task 2
+
+on:
+  workflow_dispatch:
+    inputs:
+      install_deps:
+        type: boolean
+        default: false
+
+jobs:
+  conditional-composite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Node
+        if: inputs.install_deps == 'true'
+        uses: ./actions/setup-node-install/action.yml
+        with:
+          node-version: 18
+      - name: Print
+        if: always()
+        run: echo "Workflow finished"
+
+        

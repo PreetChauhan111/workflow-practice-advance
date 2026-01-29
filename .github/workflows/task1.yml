@@ -14,3 +14,23 @@ jobs:
         with:
           node-version: 18
     
+# name: Node-Install
+# description: this actions install node and run npm ci
+
+# inputs:
+#   node-version:
+#     description: "Node version to install"
+#     required: true
+
+# runs:
+#   using: composite
+
+#   steps:
+#     - name: install-node
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: ${{ inputs.node-version }}
+#     - name: Install dependencies
+#       run: npm ci
+#       working-directory: ${{ github.workspace }}
+#       shell: bash
