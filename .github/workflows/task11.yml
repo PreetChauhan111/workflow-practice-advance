@@ -3,7 +3,7 @@ name: Task 11
 on:
   workflow_dispatch:
   schedule:
-    - cron: "* * * * *"
+    - cron: '*/5 * * * *'
 
 jobs:
   dual_mode:
