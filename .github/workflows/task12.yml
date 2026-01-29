@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: main logic
-        if: (github.event_name == 'workflow_dispatch' && inputs.skip_run == 'false') || github.event_name == 'schedule'
+        if: inputs.skip_run == 'false'
         run: echo "Main Job executed"
       - name: Run Skipped
         if: inputs.skip_run == 'true'
