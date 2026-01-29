@@ -5,12 +5,12 @@ on:
 
 jobs:
   deploy-prod:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.ref_name == 'main'
     environment: production
     
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      group: ${{ github.workflow }}-${{ github.ref_name }}
       cancel-in-progress: true
 
     steps:
