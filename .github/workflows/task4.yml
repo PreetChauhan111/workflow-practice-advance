@@ -14,17 +14,21 @@ jobs:
       backend: ${{ steps.detect.outputs.backend }}
 
     steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
       - name: Detection
+        shell: bash
         id: detect
         run: |
-          if git diff --name-only HEAD^ HEAD | grep '^frontend'
+          if git diff --name-only HEAD^ HEAD | grep '^frontend/'
           then
             echo "frontend=true" >> $GITHUB_OUTPUT
           else
             echo "frontend=false" >> $GITHUB_OUTPUT
           fi
 
-          if git diff --name-only HEAD^ HEAD | grep '^backend'
+          if git diff --name-only HEAD^ HEAD | grep '^backend/'
           then 
             echo "backend=true" >> $GITHUB_OUTPUT
           else
