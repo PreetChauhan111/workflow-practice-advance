@@ -24,4 +24,4 @@ jobs:
             echo "Canary deployment started"
           else
             echo "Deployment skipped"
-      
+          fi
