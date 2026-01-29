@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Install Node
         if: inputs.install_deps == 'true'
-        uses: ./actions/setup-node-install/action.yml
+        uses: ./actions/setup-node-install/
         with:
           node-version: 18
       - name: Print
