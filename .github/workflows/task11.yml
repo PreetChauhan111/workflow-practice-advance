@@ -1,0 +1,17 @@
+name: Task 11
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "* * * * *"
+
+jobs:
+  dual_mode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Night
+        if: github.event_name == 'schedule'
+        run: echo "Nightly Run"
+      - name: Manual
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Manual Run"
