@@ -17,9 +17,9 @@ jobs:
         run: echo "Current active color = ${{ inputs.active_color }}"
       - name: Blue -> Green
         if: inputs.active_color == 'blue'
-        run: ${{ inputs.active_color }} = green
+        run: ${{ inputs.active_color.set_value }} = green
       - name: Green -> Blue
         if: failure() && inputs.active_color == 'green'
-        run: ${{ inputs.active_color }} = blue
+        run: ${{ inputs.active_color.set_value }} = blue
       - name: Traffic status
         run: echo "Traffic switched to ${{ inputs.active_color }}"
